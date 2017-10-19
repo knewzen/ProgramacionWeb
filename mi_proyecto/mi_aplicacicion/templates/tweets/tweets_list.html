@@ -1,10 +1,14 @@
+{% load static %}
 
-{% for object in object_list %}
-
-<p>{{object.user}}</p>
-<p>{{object.created|timesince}}</p>
-<p>{{object}}</p>
-<a href="/tweet/detail/{{object.id}}/">Detalle tweet</a>
-
-
-{% endfor %}
+<div class="container">
+    <div class="row">
+      {% for object in object_list %}
+      <div class="col-md-2">
+        <p>{{object.user}}</p>
+        <p>{{object.created|timesince}}</p>
+        <p>{{object}}</p>
+        <a href="/tweet/detail/{{object.id}}">Detalle tweet</a>
+      </div>
+      {% endfor %}
+    </div>
+</div>
