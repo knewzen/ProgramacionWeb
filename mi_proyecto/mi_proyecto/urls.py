@@ -28,7 +28,7 @@ urlpatterns = [
     #url(r'^tweet/detail/(?P<id>\d)/$', TweetDetailView.as_view(), name='TweetDetail'),
     url(r'^tweet/list$', TweetListView.as_view(), name='TweetList'),
     url(r'^tweet/detail/(?P<id>\d)$', TweetDetailView.as_view(), name='tweet_detail'),
-    url(r'^tweet/detail/(?P<id>\d)/edit/$', TweetUpdateView.as_view(), name='tweet_update'),
+    url(r'^tweet/detail/(?P<pk>\d)/edit/$', TweetUpdateView.as_view(), name='tweet_update'),
 
     # url(r'^tweet/(?P<pk>\d+)/$', TweetDetailView.as_view(), name='TweetDetail'),
 

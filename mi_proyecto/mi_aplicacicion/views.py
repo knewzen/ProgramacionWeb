@@ -12,7 +12,6 @@ from .mixin import FormUserNeededMixin
 def home(request):
     tweets = Tweet.objects.all()
     return render(request, "home.html", context={"msg":"hola django", "tweets":tweets})
-# Create form
 class TweetCreateView(LoginRequiredMixin,FormUserNeededMixin, CreateView):
     form_class = TweetModelForm
     template_name = "tweets/create_view.html"
@@ -21,7 +20,6 @@ class TweetCreateView(LoginRequiredMixin,FormUserNeededMixin, CreateView):
 class TweetDetailView(DetailView):
     template_name = "tweets/tweet_detail.html"
     queryset = Tweet.objects.all()
-
     def get_object(self):
         id = self.kwargs.get("id")
         print id
@@ -35,4 +33,4 @@ class TweetUpdateView(UpdateView):
     queryset = Tweet.objects.all()
     form_class = TweetModelForm
     template_name= "tweets/update_view.html"
-    success_url = "tweet/list"
+    success_url = "/tweet/list"
