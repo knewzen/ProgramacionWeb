@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, ListView, CreateView, UpdateView
 from django.shortcuts import render
-
+from django.db.models import Q
 from .forms import TweetModelForm
 from .models import Tweet
 from .mixin import FormUserNeededMixin
@@ -27,7 +27,17 @@ class TweetDetailView(DetailView):
 
 class TweetListView(ListView):
     template_name = "tweets/tweets_list.html"
-    queryset = Tweet.objects.all()
+    def get_queryset(self, *args, **kwargs):
+        qs = Tweet.objects.all()
+        print self.request.GET
+        query = self.request.GET.get("q",None)
+        if query is not None:
+            qs = qs.filter(
+                Q(content__icontains=query) |
+                Q(user__username__icontains=query)
+            )
+        return qs
+    #queryset = Tweet.objects.all()
 
 class TweetUpdateView(UpdateView):
     queryset = Tweet.objects.all()
