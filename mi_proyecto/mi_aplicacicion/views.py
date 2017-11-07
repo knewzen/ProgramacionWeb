@@ -11,7 +11,7 @@ from .mixin import FormUserNeededMixin
 # Create your views here.
 def home(request):
     tweets = Tweet.objects.all()
-    return render(request, "home.html", context={"msg":"hola django", "tweets":tweets})
+    return render(request, "tweets/base.html", context={"msg":"hola django", "tweets":tweets})
 class TweetCreateView(LoginRequiredMixin,FormUserNeededMixin, CreateView):
     form_class = TweetModelForm
     template_name = "tweets/create_view.html"
