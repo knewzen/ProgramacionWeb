@@ -19,15 +19,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from mi_aplicacicion.views import home, TweetCreateView
-from mi_aplicacicion.views import TweetDetailView, TweetListView, TweetUpdateView
+from mi_aplicacicion.views import TweetDetailView, TweetListView, TweetUpdateView, TweetDeleteView #TweetDeleteView
 # from mi_aplicacicion.views import TweetDetailView
 
 urlpatterns = [
-    url(r'^$', home, name='home'),
+    url(r'^home$', home, name='home'),
     url(r'^tweet/create$', TweetCreateView.as_view(), name='TweetCreate'),
     #url(r'^tweet/detail/(?P<id>\d)/$', TweetDetailView.as_view(), name='TweetDetail'),
-    url(r'^tweet/list$', TweetListView.as_view(), name='TweetList'),
-    url(r'^tweet/detail/(?P<id>\d)$', TweetDetailView.as_view(), name='tweet_detail'),
-    url(r'^tweet/detail/(?P<pk>\d)/edit/$', TweetUpdateView.as_view(), name='tweet_update'),
+    url(r'^$', TweetListView.as_view(), name='TweetList'),
+    url(r'^tweet/detail/(?P<id>[0-9]+)$', TweetDetailView.as_view(), name='tweet_detail'),
+    url(r'^tweet/detail/(?P<pk>[0-9]+)/edit/$', TweetUpdateView.as_view(), name='tweet_update'),
     url(r'^admin/', admin.site.urls),
+    url(r'^tweet/detail/(?P<pk>[0-9]+)/delete/$', TweetDeleteView.as_view(), name='TweetDeleteView'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

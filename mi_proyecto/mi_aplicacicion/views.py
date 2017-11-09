@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView, ListView, CreateView, UpdateView
+from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 from django.shortcuts import render
 from django.db.models import Q
+from django.urls import reverse_lazy
 from .forms import TweetModelForm
 from .models import Tweet
 from .mixin import FormUserNeededMixin
@@ -12,6 +13,7 @@ from .mixin import FormUserNeededMixin
 def home(request):
     tweets = Tweet.objects.all()
     return render(request, "tweets/base.html", context={"msg":"hola django", "tweets":tweets})
+
 class TweetCreateView(LoginRequiredMixin,FormUserNeededMixin, CreateView):
     form_class = TweetModelForm
     template_name = "tweets/create_view.html"
@@ -26,7 +28,7 @@ class TweetDetailView(DetailView):
         return Tweet.objects.get(id=id)
 
 class TweetListView(ListView):
-    template_name = "tweets/tweets_list.html"
+    template_name = "tweets/base.html"
     def get_queryset(self, *args, **kwargs):
         qs = Tweet.objects.all()
         print self.request.GET
@@ -44,3 +46,8 @@ class TweetUpdateView(UpdateView):
     form_class = TweetModelForm
     template_name= "tweets/update_view.html"
     success_url = "/tweet/list"
+
+class TweetDeleteView(LoginRequiredMixin, DeleteView):
+    model = Tweet
+    template_name = "tweets/delete_confirm.html"
+    success_url = reverse_lazy("TweetList")

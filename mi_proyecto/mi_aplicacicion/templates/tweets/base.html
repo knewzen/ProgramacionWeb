@@ -13,7 +13,6 @@
   <link rel="stylesheet" type="text/css" href="{% static 'static/bulma/css/bulma.css' %}">
 </head>
 <body>
-
   <nav class="navbar is-white topNav">
     <div class="container">
       <div class="navbar-brand">
@@ -69,18 +68,15 @@
           <a class="navbar-item" href="#">Recent</a>
           <a class="navbar-item" href="#">Rising</a>
         </div>
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <input class="input" type="text" placeholder="Search forum...">
-          </div>
-        </div>
+          {% include "tweets/search_form.html" %}
       </div>
     </div>
   </nav>
   <section class="container">
     <div class="columns">
       <div class="column is-3">
-        <a class="button is-primary is-block is-alt is-large" href="#">New Post</a>
+        <!--include "tweets/form.html"-->
+        {%include "tweets/create_view.html" with from=form btn_tittle='Add tweet'%}
         <aside class="menu">
           <p class="menu-label">
             Tags
@@ -94,33 +90,10 @@
             <li><a>Balance</a></li>
           </ul>
         </aside>
-
       </div>
-
-      <div class="column is-9">
-        <div class="box content">
-          <article class="post">
-            <h4>Bulma: How do you center a button in a box?</h4>
-            <span class="pull-right has-text-grey-light"><i class="fa fa-comments"></i> 1</span>
-            <div class="media">
-              <div class="media-left">
-                <p class="image is-32x32">
-                  <img src="http://bulma.io/images/placeholders/128x128.png">
-                </p>
-              </div>
-              <div class="media-content">
-                <div class="content">
-                  <p>
-                    <a href="#">@jsmith</a> replied 34 minutes ago  &nbsp;
-                    <span class="tag">Question</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </article>
-        </div>
+      <div class="column">
+        {% include "tweets/tweets_list.html" %}
       </div>
-
     </div>
   </section>
   <footer class="footer">

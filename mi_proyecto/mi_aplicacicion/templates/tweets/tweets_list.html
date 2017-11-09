@@ -1,20 +1,30 @@
 
 {% load static %}
-
-<div class="container">
-  <div class="row">
-    <div class="">
-      {% include "tweets/search_form.html" %}
-    </div>
-  </div>
-    <div class="row">
-      {% for object in object_list %}
-      <div class="col-md-2">
-        <p>{{object.user}}</p>
-        <p>{{object.created|timesince}}</p>
-        <p>{{object}}</p>
-        <a href="/tweet/detail/{{object.id}}">Detalle tweet</a>
+{%block tweets%}
+  {% for object in object_list %}
+    <div class="column is-9">
+      <div class="box content">
+        <article class="post">
+          <h4>{{object.content}}</h4>
+          <span class="pull-right has-text-grey-light"><i class="fa fa-comments"></i> 1</span>
+          <div class="media">
+            <div class="media-left">
+              <p class="image is-32x32">
+                <img src="http://bulma.io/images/placeholders/128x128.png">
+              </p>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <a href="/tweet/detail/{{object.id}}">@{{object.user}}</a> {{object.created|timesince}}  &nbsp;
+                  <a class="tag is-primary" href="/tweet/detail/{{object.id}}/edit">Edit</a>
+                  <a class="tag is-danger" href="/tweet/detail/{{object.id}}/delete">Delete</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
-      {% endfor %}
     </div>
-</div>
+  {% endfor %}
+{%endblock%}

@@ -1,5 +1,9 @@
 <form class="form" action="" method="post">{% csrf_token %}
   {{ form.as_p }}
-  <input type="submit" name="" value="{{btn_tittle}}">
-
+  <input class="button is-primary is-block is-alt is-large" type="submit" name="" value="{{btn_tittle}}">
+  <div class="navbar-end">
+    <div class="navbar-item">
+      <input class="input" type="text" placeholder="Add">
+    </div>
+  </div>
 </form>
